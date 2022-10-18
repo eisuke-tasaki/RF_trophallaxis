@@ -4,4 +4,6 @@ This is the "R code" repository used for graphing and statistical analysis relat
 
 > The file "RF_trophallaxis.Rmd" contains the R code.
 
-For source data, see an atached file "RF_trophallaxis.csv" and see "Supplementary Data 4" in the paper "Special diets of long-lived kings and queens in termites" for detail.
+> The file "RF_trophallaxis.csv" contains the source data.
+
+For source data, see "Supplementary Data 1" in the paper "Special diets of long-lived kings and queens in termites" for detail.

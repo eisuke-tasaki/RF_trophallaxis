@@ -1,0 +1,78 @@
+---
+title: "RF_trophallaxis"
+author: "Eisuke Tasaki"
+date: "10/18/2022"
+output: html_document
+---
+
+```{r, message=FALSE}
+library(tidyverse)
+library(gridExtra)
+library(lme4)
+```
+
+### Data loading
+```{r}
+# reading excel file (see attached source file "RF_trophallaxis.csv" and see supplementary Data 1 in a paper "Special food of long-lived kings and queens in termites" for detail)
+d <- read.csv("RF_trophallaxis.csv", header=T)
+d <- transform(d, type= factor(type, levels = c("Stomodeal","Proctodeal")))
+
+# Extract caste and trophallaxis type and store in data set
+dpk <- subset(d, d$caste=="PK")
+dsq <- subset(d, d$caste=="SQ")
+dS <- subset(d, d$type=="Stomodeal")
+dP <- subset(d, d$type=="Proctodeal")
+```
+
+### Graph plotting
+```{r}
+# Number of trophallaxis to king
+g1 <- ggplot(dpk, aes(x=factor(colony_code), y=freq, color=type))
+g1 <- g1 + geom_boxplot(alpha=0.5,outlier.colour = NA) + xlab("Colony") + ylab(expression(paste("Number of trophallaxis /hr.")))
+g1 <- g1 + geom_point(position=position_jitterdodge(jitter.width=0.5, jitter.height=0.0))
+g1 <- g1 + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank())
+g1 <- g1 + theme(axis.line=element_line(colour = "black"), axis.ticks=element_line(colour = "black"))
+g1 <- g1 + theme(axis.text=element_text(size=12), axis.title=element_text(size=14))
+g1
+
+# Number of trophallaxis to queen
+g2 <- ggplot(dsq, aes(x=factor(colony_code), y=freq, color=type))
+g2 <- g2 + geom_boxplot(alpha=0.5,outlier.colour = NA) + xlab("Colony") + ylab(expression(paste("Number of trophallaxis /hr.")))
+g2 <- g2 + geom_point(position=position_jitterdodge(jitter.width=0.5, jitter.height=0.0))
+g2 <- g2 + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank())
+g2 <- g2 + theme(axis.line=element_line(colour = "black"), axis.ticks=element_line(colour = "black"))
+g2 <- g2 + theme(axis.text=element_text(size=12), axis.title=element_text(size=14))
+g2
+```
+
+### statistical analysis
+```{r}
+## for Number of trophallaxis to king
+# GLM, family=poisson
+res1 <- glm(freq ~ type + colony_code, family="poisson", dpk)
+summary(res1)
+fit1=glm(freq ~ 1 + colony_code, family="poisson", dpk) #model_1
+fit2=glm(freq ~ type + 1, family="poisson", dpk) #model_2
+anova(res1, fit1, test = "Chisq") #likelihood ratio test
+anova(res1, fit2, test = "Chisq") #likelihood ratio test
+
+## for Number of trophallaxis to queen
+# GLM, family=poisson
+res2 <- glm(freq ~ type + colony_code, family="poisson", dsq)
+summary(res2)
+fit3=glm(freq ~ 1 + colony_code, family="poisson", dsq) #model_3
+fit4=glm(freq ~ type + 1, family="poisson", dsq) #model_4
+anova(res2, fit3, test = "Chisq") #likelihood ratio test
+anova(res2, fit4, test = "Chisq") #likelihood ratio test
+
+## for Number of trophallaxis (stomodeal) between king and queen
+# GLMM, family=poisson
+res3 <- glmer(freq ~ caste + colony_code + (1|individual_ID), family="poisson", dS)
+summary(res3)
+fit5=glmer(freq ~ 1 + colony_code + (1|individual_ID), family="poisson", dS) #model_5
+fit6=glmer(freq ~ caste + 1 + (1|individual_ID), family="poisson", dS) #model_6
+anova(res3, fit5, test = "Chisq") #likelihood ratio test
+anova(res3, fit6, test = "Chisq") #likelihood ratio test
+```
+
+

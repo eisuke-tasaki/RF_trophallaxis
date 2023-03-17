@@ -6,4 +6,4 @@ This is the "R code" repository used for graphing and statistical analysis relat
 
 > The file "RF_trophallaxis.csv" contains the source data.
 
-For source data, see "Dataset S1" in the paper "The unique food of long-lived termite kings and queens" for detail.
+For source data, see "Dataset S1" in the paper "The royal food of termites" for detail.

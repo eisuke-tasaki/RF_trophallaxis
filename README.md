@@ -1,6 +1,6 @@
 # Trophallaxis analysis
 
-This is the "R code" repository used for graphing and statistical analysis related to the comparative analysis of Royal Food (RF) feeding type (stomodeal or proctodeal) or feeding frequency in the paper "The unique food of long-lived termite kings and queens".
+This is the "R code" repository used for graphing and statistical analysis related to the comparative analysis of Royal Food (RF) feeding type (stomodeal or proctodeal) or feeding frequency in the paper "The royal food of termites".
 
 > The file "RF_trophallaxis.Rmd" contains the R code.
 

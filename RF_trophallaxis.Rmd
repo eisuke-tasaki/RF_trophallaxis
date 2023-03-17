@@ -13,7 +13,7 @@ library(lme4)
 
 ### Data loading
 ```{r}
-# reading excel file (see attached source file "RF_trophallaxis.csv" and see supplementary Data 1 in a paper "Special food of long-lived kings and queens in termites" for detail)
+# reading excel file (see attached source file "RF_trophallaxis.csv" and see supplementary Data 1 in a paper "The royal food of termites" for detail)
 d <- read.csv("RF_trophallaxis.csv", header=T)
 d <- transform(d, type= factor(type, levels = c("Stomodeal","Proctodeal")))
 

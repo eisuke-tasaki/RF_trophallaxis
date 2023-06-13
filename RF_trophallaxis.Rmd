@@ -1,7 +1,7 @@
 ---
 title: "RF_trophallaxis"
 author: "Eisuke Tasaki"
-date: "10/18/2022"
+date: "6/13/2023"
 output: html_document
 ---
 
@@ -13,7 +13,7 @@ library(lme4)
 
 ### Data loading
 ```{r}
-# reading excel file (see attached source file "RF_trophallaxis.csv" and see supplementary Data 1 in a paper "The royal food of termites" for detail)
+# reading excel file (see attached source file "RF_trophallaxis.csv" and see Dataset S1 in a paper "The royal food of termites shows king and queen specificity" for detail)
 d <- read.csv("RF_trophallaxis.csv", header=T)
 d <- transform(d, type= factor(type, levels = c("Stomodeal","Proctodeal")))
 
